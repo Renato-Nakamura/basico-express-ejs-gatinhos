@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-app.set('view engine','ejs');
+app.set('view engine','ejs'); //definindo o ejs
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false })); // essa linha de codigo nos permite acessar as informações mandadas pelo post do nosso formulario no ejs
 
 const imagens =  [
     "https://media.istockphoto.com/photos/british-shorthair-kitten-sleeping-picture-id1317253625?k=20&m=1317253625&s=612x612&w=0&h=WDCPZJPZcT90m7r0JQ9g4IxSIk01TJREoqlGKc5s4EM=",
@@ -11,24 +11,24 @@ const imagens =  [
     "https://media.istockphoto.com/photos/kitten-with-his-paw-up-picture-id149052633?k=20&m=149052633&s=612x612&w=0&h=UXr8bpB1vLTj3oaKkBqd8wTC2zX0EYJnwMSBseXfvV4=",
     "https://media.istockphoto.com/photos/funny-kitten-picture-id91626487?k=20&m=91626487&s=612x612&w=0&h=uuAFAxfam5qPG4A9cvJe_LY28M37F_zgW8YI2uKUwz8=",
   ];
-// let i = 0
-let src = imagens[0]
+
+  let src = imagens[0]
 
 app.get('/',(req,res)=>{
     res.render('index',{src})
     // res.send('olá Victor')
 })
-
+// lá no ejs mandamos as informações do formulário para esse post com a rota /trocar, assim a informação "indice" chegara no corpo da requisição (req.body) como um objeto.
 app.post('/trocar',(req,res)=>{
     const corpo = req.body
-    const indice = corpo.indice
+    const indice = corpo.indice //por chegar dentro de um objeto precisamos pegar somente o número, por isso vamos acessar esse atributo
 
     src = imagens[indice]
     console.log('##corpo da requisição',req.body)
     console.log('##corpo.indice ',req.body.indice)
     res.redirect('/')
 })
-
+//o primeiro valor do app.listen será a porta (valor que fica na frente do localhost:___, essa porta pode ser qualquer valor a sua escolha, mas temos alguns padrões definidos, como o 3000)
 app.listen(332,()=>{
-    console.log('o servidor está rodando')
+    console.log('o servidor está rodando') // esse segundo valor será uma função de callback quando o servidor está ativo, como padrão costumamos deixar uma mensagem para nos informar de que está tudo certo.
 })

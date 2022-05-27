@@ -10,12 +10,15 @@
     <main>
         <section>
             <h1>GATINHOS</h1>
-            <img src="<%= src %>" alt="">
+            <!-- aqui estamos usando as tags do ejs para passar o endereço da nossa imagem -->
+            <img src="<%= src %>" alt="gatinho">
         </section>
         <section>
+            <!-- No form o action será o seu endpoint (rota) definida no index.js e o method é a ação que será feita, no nosso caso um POST -->
             <form action="/trocar" method="post">
                 <label for="">Coloque o número do gatinho </label>
                 <input type="number" min="0" max="4" required name="indice">
+                <!-- Aqui no input temos diversos critérios para os valores que serão inseridos e o atributo name, que será o nome do atributo na nossa requisição-->
                 <button type="submit">Trocar</button>
             </form>
         </section>
