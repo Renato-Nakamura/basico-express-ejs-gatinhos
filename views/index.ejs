@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatinho</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h1>GATINHOS</h1>
+            <img src="<%= src %>" alt="">
+        </section>
+        <section>
+            <form action="/trocar" method="post">
+                <label for="">Coloque o número do gatinho </label>
+                <input type="number" min="0" max="4" required name="indice">
+                <button type="submit">Trocar</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
