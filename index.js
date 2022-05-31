@@ -1,7 +1,8 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 app.set('view engine','ejs'); //definindo o ejs
-
+app.use(express.static(path.join(__dirname,"public")));
 app.use(express.urlencoded({ extended: false })); // essa linha de codigo nos permite acessar as informações mandadas pelo post do nosso formulario no ejs
 
 const imagens =  [
@@ -12,20 +13,21 @@ const imagens =  [
     "https://media.istockphoto.com/photos/funny-kitten-picture-id91626487?k=20&m=91626487&s=612x612&w=0&h=uuAFAxfam5qPG4A9cvJe_LY28M37F_zgW8YI2uKUwz8=",
   ];
 
-  let src = imagens[0]
+let src = imagens[0]
+let message = ''
 
 app.get('/',(req,res)=>{
-    res.render('index',{src})
-    // res.send('olá Victor')
+    res.render('index',{src,message})
 })
 // lá no ejs mandamos as informações do formulário para esse post com a rota /trocar, assim a informação "indice" chegara no corpo da requisição (req.body) como um objeto.
 app.post('/trocar',(req,res)=>{
-    const corpo = req.body
-    const indice = corpo.indice //por chegar dentro de um objeto precisamos pegar somente o número, por isso vamos acessar esse atributo
-
-    src = imagens[indice]
-    console.log('##corpo da requisição',req.body)
-    console.log('##corpo.indice ',req.body.indice)
+    const {indice} = req.body
+    //VALIDAÇÃO NO BACKEND
+    if(indice<0 || indice>4 || indice == ''){
+        message = 'valor inválido, insira um novo valor entre 0 e 4'
+    }else{
+        src = imagens[indice]
+    }
     res.redirect('/')
 })
 //o primeiro valor do app.listen será a porta (valor que fica na frente do localhost:___, essa porta pode ser qualquer valor a sua escolha, mas temos alguns padrões definidos, como o 3000)

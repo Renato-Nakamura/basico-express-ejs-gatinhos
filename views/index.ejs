@@ -17,11 +17,18 @@
             <!-- No form o action será o seu endpoint (rota) definida no index.js e o method é a ação que será feita, no nosso caso um POST -->
             <form action="/trocar" method="post">
                 <label for="">Coloque o número do gatinho </label>
-                <input type="number" min="0" max="4" required name="indice">
+                <input type="number" name="indice">
                 <!-- Aqui no input temos diversos critérios para os valores que serão inseridos e o atributo name, que será o nome do atributo na nossa requisição-->
                 <button type="submit">Trocar</button>
             </form>
+            <span style="color:red"  id="error"></span>
+            <% if(message != ""){ %>
+                <section id="message">
+                    <p style="color:red"> <%=message%> </p>
+                </section>
+                <% } %>
         </section>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
